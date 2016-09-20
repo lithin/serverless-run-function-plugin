@@ -1,0 +1,39 @@
+{
+  "name": "serverless-run-function-plugin",
+  "version": "0.0.1",
+  "description": "Serverless plugin to run a function",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "cross-env BABEL_ENV=commonjs babel src --out-dir dist --ignore '*.test.js'",
+    "check": "npm run lint && npm test",
+    "clean": "rimraf dist",
+    "lint": "eslint src",
+    "test": "mocha -R spec --compilers js:babel-register $(find src -name '*.test.js')",
+    "test:watch": "npm t -- --watch"
+  },
+  "bugs": {
+    "url": "https://github.com/lithin/serverless-run-function-plugin/issues"
+  },
+  "author": "Anna Doubkova <doubkova.anna@gmail.com> (https://github.com/lithin)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.14.0",
+    "chai": "^3.5.0",
+    "cross-env": "^2.0.1",
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "mocha": "^3.0.2",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
+  }
+}

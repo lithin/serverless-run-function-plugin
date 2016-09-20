@@ -1,0 +1,56 @@
+import chai, { expect } from 'chai';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+
+import { run } from './run';
+
+chai.use(sinonChai);
+
+describe('run function', () => {
+  const functionObj = {
+    handler: 'file.name',
+  };
+  const serverless = {
+    service: {},
+    utils: {},
+    config: {
+      servicePath: 'path',
+    },
+  };
+  const options = {
+    functionName: 'name',
+  };
+  const requiredFile = {};
+  const event = {};
+
+  let getFunctionStub;
+  let requireStub;
+
+  before(() => {
+    getFunctionStub = sinon.stub().returns(functionObj);
+    serverless.service.getFunction = getFunctionStub;
+
+    requiredFile.name = sinon.spy();
+    requireStub = sinon.stub();
+    requireStub.onFirstCall().returns(requiredFile);
+    requireStub.onSecondCall().returns(event);
+
+    run(serverless, options, requireStub);
+  });
+
+  it('gets function by its function name', () => {
+    expect(getFunctionStub).to.have.been.calledWith('name');
+  });
+
+  it('requires the file', () => {
+    expect(requireStub).to.have.been.calledWith('path/file.js');
+  });
+
+  it('gets event.json', () => {
+    expect(requireStub).to.have.been.calledWith('path/event.json');
+  });
+
+  it('runs the function with event.json', () => {
+    expect(requiredFile.name).to.have.been.calledWith(event);
+  });
+});
