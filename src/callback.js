@@ -5,6 +5,7 @@ const callback = serverless => ((err, result) => {
     serverless.cli.log('Failed - This Error Was Returned:');
     serverless.cli.log(err.message);
     serverless.cli.log(err.stack);
+    return;
   }
 
   serverless.cli.log('Success! - This Response Was Returned:');

@@ -1,6 +1,6 @@
-import { callback } from './callback';
+import callback from './callback';
 
-const context = (name, callbackFn = callback) => ({
+const context = (name, serverless, callbackFn = callback) => ({
   awsRequestId: 'id',
   invokeid: 'id',
   logGroupName: `/aws/lambda/${name}`,
@@ -11,9 +11,9 @@ const context = (name, callbackFn = callback) => ({
   functionName: name,
   memoryLimitInMB: '1024',
 
-  succeed: result => callbackFn(null, result),
-  fail: error => callbackFn(error),
-  done: callbackFn,
+  succeed: result => callbackFn(serverless)(null, result),
+  fail: error => callbackFn(serverless)(error),
+  done: callbackFn(serverless),
 
   getRemainingTimeInMillis: () => 5000,
 });

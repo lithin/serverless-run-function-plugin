@@ -24,7 +24,7 @@ describe('callback', () => {
   });
 
   describe('inner function', () => {
-    it('prints out error if there is an error', () => {
+    it('prints out error if there is an error, and does not run success', () => {
       const error = new Error('error');
       fn(error);
       expect(serverless.cli.log)
@@ -33,6 +33,8 @@ describe('callback', () => {
         .to.have.been.calledWith('error');
       expect(serverless.cli.log)
         .to.have.been.calledWith(error.stack);
+      expect(serverless.cli.log)
+        .to.not.have.been.calledWith('Success! - This Response Was Returned:');
     });
 
     it('prints out stringified result if there is no error', () => {

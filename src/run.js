@@ -23,7 +23,7 @@ export const run = (
 
   importedHandler[functionName](
     event,
-    contextFn(functionName),
+    contextFn(functionName, serverless),
     callbackFn(serverless)
   );
 };

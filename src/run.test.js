@@ -56,6 +56,8 @@ describe('run function', () => {
   });
 
   it('runs the function with event.json, context, and callback', () => {
+    expect(contextStub).to.have.been.calledWith('name', serverless);
+    expect(callbackStub).to.have.been.calledWith(serverless);
     expect(requiredFile.name)
       .to.have.been.calledWith(event, 'context', 'callback');
   });

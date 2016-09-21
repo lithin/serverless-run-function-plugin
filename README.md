@@ -2,6 +2,8 @@
 
 ## Roadmap
 - Test that it actually works ;)
+- Each test case should have only one assertion
+- Add back eslint rule for default exports
 - Version checking for correct version of serverless
 
 ## Goals

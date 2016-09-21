@@ -9,10 +9,12 @@ chai.use(sinonChai);
 describe('context', () => {
   let callback;
   let obj;
+  let callbackSpy;
 
   beforeEach(() => {
-    callback = sinon.spy();
-    obj = context('name', callback);
+    callbackSpy = sinon.spy();
+    callback = sinon.stub().returns(callbackSpy);
+    obj = context('name', 'serverless', callback);
   });
 
   it('is a function returning an object', () => {
@@ -55,17 +57,20 @@ describe('context', () => {
 
     it('succeed which calls the callback with result', () => {
       obj.succeed('result');
-      expect(callback).to.have.been.calledWith(null, 'result');
+      expect(callback).to.have.been.calledWith('serverless');
+      expect(callbackSpy).to.have.been.calledWith(null, 'result');
     });
 
     it('fail which calls the callback with error', () => {
       obj.fail('error');
-      expect(callback).to.have.been.calledWith('error');
+      expect(callback).to.have.been.calledWith('serverless');
+      expect(callbackSpy).to.have.been.calledWith('error');
     });
 
     it('done which calls the callback directly', () => {
       obj.done(1, 2, 3);
-      expect(callback).to.have.been.calledWith(1, 2, 3);
+      expect(callback).to.have.been.calledWith('serverless');
+      expect(callbackSpy).to.have.been.calledWith(1, 2, 3);
     });
 
     it('getRemainingTimeInMillis which returns 5s', () => {
