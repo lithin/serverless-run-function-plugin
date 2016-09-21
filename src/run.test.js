@@ -25,6 +25,8 @@ describe('run function', () => {
 
   let getFunctionStub;
   let requireStub;
+  let contextStub;
+  let callbackStub;
 
   before(() => {
     getFunctionStub = sinon.stub().returns(functionObj);
@@ -35,7 +37,10 @@ describe('run function', () => {
     requireStub.onFirstCall().returns(requiredFile);
     requireStub.onSecondCall().returns(event);
 
-    run(serverless, options, requireStub);
+    contextStub = sinon.stub().returns('context');
+    callbackStub = sinon.stub().returns('callback');
+
+    run(serverless, options, requireStub, contextStub, callbackStub);
   });
 
   it('gets function by its function name', () => {
@@ -50,7 +55,8 @@ describe('run function', () => {
     expect(requireStub).to.have.been.calledWith('path/event.json');
   });
 
-  it('runs the function with event.json', () => {
-    expect(requiredFile.name).to.have.been.calledWith(event);
+  it('runs the function with event.json, context, and callback', () => {
+    expect(requiredFile.name)
+      .to.have.been.calledWith(event, 'context', 'callback');
   });
 });

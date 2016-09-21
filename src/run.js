@@ -1,6 +1,15 @@
 import path from 'path';
 
-export const run = (serverless, options, requireFn = require) => {
+import callback from './callback';
+import context from './context';
+
+export const run = (
+  serverless,
+  options,
+  requireFn = require,
+  contextFn = context,
+  callbackFn = callback
+) => {
   const { functionName } = options;
 
   const functionObj = serverless.service.getFunction(functionName);
@@ -12,5 +21,9 @@ export const run = (serverless, options, requireFn = require) => {
 
   const event = requireFn(path.join(servicePath, 'event.json'));
 
-  importedHandler[functionName](event);
+  importedHandler[functionName](
+    event,
+    contextFn(functionName),
+    callbackFn(serverless)
+  );
 };
