@@ -1,4 +1,5 @@
 import chai, { expect } from 'chai';
+import path from 'path';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
@@ -48,11 +49,11 @@ describe('run function', () => {
   });
 
   it('requires the file', () => {
-    expect(requireStub).to.have.been.calledWith('path/file.js');
+    expect(requireStub).to.have.been.calledWith(path.join('path', 'file.js'));
   });
 
   it('gets event.json', () => {
-    expect(requireStub).to.have.been.calledWith('path/event.json');
+    expect(requireStub).to.have.been.calledWith(path.join('path', 'event.json'));
   });
 
   it('runs the function with event.json, context, and callback', () => {
