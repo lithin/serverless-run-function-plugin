@@ -9,7 +9,7 @@ chai.use(sinonChai);
 
 describe('run function', () => {
   const functionObj = {
-    handler: 'file.name',
+    handler: 'file.handler',
   };
   const serverless = {
     service: {},
@@ -33,7 +33,7 @@ describe('run function', () => {
     getFunctionStub = sinon.stub().returns(functionObj);
     serverless.service.getFunction = getFunctionStub;
 
-    requiredFile.name = sinon.spy();
+    requiredFile.handler = sinon.spy();
     requireStub = sinon.stub();
     requireStub.onFirstCall().returns(requiredFile);
     requireStub.onSecondCall().returns(event);
@@ -59,7 +59,7 @@ describe('run function', () => {
   it('runs the function with event.json, context, and callback', () => {
     expect(contextStub).to.have.been.calledWith('name', serverless);
     expect(callbackStub).to.have.been.calledWith(serverless);
-    expect(requiredFile.name)
+    expect(requiredFile.handler)
       .to.have.been.calledWith(event, 'context', 'callback');
   });
 });
