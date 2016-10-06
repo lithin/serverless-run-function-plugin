@@ -11,7 +11,7 @@
     "check": "npm run lint && npm test",
     "clean": "rimraf dist",
     "lint": "eslint src",
-    "test": "mocha -R spec --compilers js:babel-register $(find src -name '*.test.js')",
+    "test": "mocha -R spec --compilers js:babel-register src/*.test.js",
     "test:watch": "npm t -- --watch"
   },
   "bugs": {
