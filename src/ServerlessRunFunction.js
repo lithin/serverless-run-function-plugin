@@ -18,11 +18,11 @@ export class ServerlessRunFunction {
             required: true,
             shortcut: 'f',
           },
-          path: {
+          eventPath: {
             usage: 'Relative path to event.json to execute',
             required: false,
-            shortcut: 'p',
-          }
+            shortcut: 'e',
+          },
         },
       },
     };
