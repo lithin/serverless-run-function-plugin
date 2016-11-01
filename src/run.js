@@ -10,22 +10,20 @@ export const run = (
   contextFn = context,
   callbackFn = callback
 ) => {
-  const { functionName } = options;
-
-  const functionObj = serverless.service.getFunction(functionName);
+  const functionObj = serverless.service.getFunction(options.functionName);
   const { handler } = functionObj;
 
-  let [filename, handlerFunction] = handler.split('.');
-  filename = filename + '.js';
+  const [filename, handlerFunction] = handler.split('.');
+  const file = `${filename}.js`;
 
   const { servicePath } = serverless.config;
-  const importedHandler = requireFn(path.join(servicePath, filename));
+  const importedHandler = requireFn(path.join(servicePath, file));
 
   const event = requireFn(path.join(servicePath, 'event.json'));
 
   importedHandler[handlerFunction](
     event,
-    contextFn(functionName, serverless),
+    contextFn(options.functionName, serverless),
     callbackFn(serverless)
   );
 };
