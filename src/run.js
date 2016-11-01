@@ -19,7 +19,7 @@ export const run = (
   const { servicePath } = serverless.config;
   const importedHandler = requireFn(path.join(servicePath, file));
 
-  const event = requireFn(path.join(servicePath, 'event.json'));
+  const event = requireFn(path.join(servicePath, options.path || 'event.json'));
 
   importedHandler[handlerFunction](
     event,
