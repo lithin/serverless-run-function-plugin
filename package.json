@@ -11,6 +11,7 @@
     "check": "npm run lint && npm test",
     "clean": "rimraf dist",
     "lint": "eslint src",
+    "publish:full": "npm run build && npm publish",
     "test": "mocha -R spec --compilers js:babel-register src/*.test.js",
     "test:watch": "npm t -- --watch"
   },
