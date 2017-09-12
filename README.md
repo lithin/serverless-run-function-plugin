@@ -1,6 +1,6 @@
 # Serverless Run Function Plugin
 
-** This plugin is deprecated since it is possible to run functions natively in the framework: https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/**
+**This plugin is deprecated since it is possible to run functions natively in the framework: https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/**
 
 Serverless plugin to run a lambda function locally.
 
