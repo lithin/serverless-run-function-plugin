@@ -17,6 +17,7 @@ export class ServerlessRunFunction {
             usage: 'Name of the function to run',
             required: true,
             shortcut: 'f',
+            type: 'string',
           },
         },
       },
